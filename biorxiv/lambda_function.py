@@ -19,8 +19,8 @@ def lambda_handler(event, context):
         if date_to_download == dt.now().strftime("%Y-%m-%d"):
             break
         download_data_list = download_file(date_to_download, keyword)
-        # If None is returned, there is no data for that day, upload bookmark and continue to next day
-        if download_data_list is None:
+        # If None or empty list is returned, there is no data for that day or no relevant results from keyword, upload bookmark and continue to next day
+        if download_data_list is None or download_data_list == []:
             upload_bookmark(bucket_name, file_prefix, bookmark_filename, date_to_download)
             continue
         # Case where data is processed and uploaded to s3
