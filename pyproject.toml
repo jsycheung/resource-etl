@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "resource-etl"
+version = "0.1.0"
+description = ""
+authors = ["Jasmine So Yee Cheung <jasminesyc2000@gmail.com>"]
+readme = "README.md"
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "^3.12"
+requests = "^2.32.3"
+
+[tool.poetry.group.local-dev]
+optional = true
+
+[tool.poetry.group.local-dev.dependencies]
+boto3 = "^1.35.54"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
