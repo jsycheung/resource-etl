@@ -12,7 +12,7 @@ def lambda_handler(event, context):
     bookmark_filename = os.environ.get("BOOKMARK_FILENAME")
     baseline_date = os.environ.get("BASELINE_DATE")
     file_prefix = os.environ.get("FILE_PREFIX")
-    keyword = os.environ.get("KEYWORD")
+    regex = os.environ.get("REGEX")
     while True:
         prev_date = get_prev_date(
             bucket_name, file_prefix, bookmark_filename, baseline_date
@@ -21,8 +21,8 @@ def lambda_handler(event, context):
         # If today's date is reached, break the loop because data is not yet available for today
         if date_to_download == dt.now().strftime("%Y-%m-%d"):
             break
-        download_data_list = download_file(date_to_download, keyword)
-        # If None or empty list is returned, there is no data for that day or no relevant results from keyword, upload bookmark and continue to next day
+        download_data_list = download_file(date_to_download, regex)
+        # If None or empty list is returned, there is no data for that day or no relevant results from regex, upload bookmark and continue to next day
         if download_data_list is None or download_data_list == []:
             upload_bookmark(
                 bucket_name, file_prefix, bookmark_filename, date_to_download
