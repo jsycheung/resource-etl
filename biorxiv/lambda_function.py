@@ -31,7 +31,7 @@ def lambda_handler(event, context):
         # Case where data is processed and uploaded to s3
         else:
             upload_s3(
-                json.dumps(download_data_list).encode("utf-8"),
+                "\n".join(map(json.dumps, download_data_list)).encode("utf-8"),
                 bucket_name,
                 f"{file_prefix}/{date_to_download}.json",
             )
